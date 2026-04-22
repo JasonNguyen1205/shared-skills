@@ -6,8 +6,13 @@ Review project code to establish current status, remove duplicated logic, integr
 ## Required Outcomes
 - Clear current project status summary.
 - Duplicate logic identified and consolidated.
-- Obsolete features/functions removed or formally deprecated.
+- Obsolete features/functions hard-removed by default after validation.
 - Regression risk validated with targeted tests.
+
+## Policy Defaults
+- Default: auto-refactor duplicate logic immediately into a canonical path.
+- Default: hard-remove obsolete functions/features once replacement behavior is validated.
+- Exception: if blast radius is high, propose a short consolidation plan first and execute after approval.
 
 ## Workflow
 1. Build current status snapshot.
@@ -17,12 +22,12 @@ Review project code to establish current status, remove duplicated logic, integr
 2. Perform duplicate-logic review.
 - Search for same business rule implemented in multiple files.
 - Select one canonical implementation.
-- Integrate callers to canonical path.
+- Auto-refactor callers to canonical path immediately by default.
 
 3. Remove obsolete behavior.
 - Identify dead code, replaced functions, and stale feature branches.
-- Remove unused paths when replacement is verified.
-- If immediate removal is risky, mark with explicit deprecation note and follow-up task.
+- Hard-remove unused paths when replacement is verified.
+- If immediate removal is high-risk, propose consolidation plan first as an approved exception.
 
 4. Validate behavior.
 - Run targeted unit/integration tests for affected modules.
@@ -42,3 +47,4 @@ Review project code to establish current status, remove duplicated logic, integr
 - Do not keep two active implementations of the same rule without explicit reason.
 - Do not remove legacy logic until replacement path is validated.
 - Do not ship consolidation work without tests.
+- Do not default to deprecation when hard removal is safe and validated.
